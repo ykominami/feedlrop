@@ -17,7 +17,7 @@ module Feedlrop
   class Feedlrop
     extend Forwardable
     
-    def_delegator( :@dbmgr , :add , :db_add)
+#    def_delegator( :@dbmgr , :add , :db_add)
 
     def initialize
       @sqlite3yaml = 'config/sqlite3.yaml'
@@ -67,7 +67,7 @@ module Feedlrop
           if y.id =~ /^feed\/(.+)/
             url = $1
             csv_add( category_id , url , y[:count] )
-            db_add(  category_id , url , y[:count] )
+            @dbmgr.add(  category_id , url , y[:count] )
           end
         end
       end

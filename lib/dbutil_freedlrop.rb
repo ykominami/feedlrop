@@ -13,7 +13,7 @@ module Feedlrop
     class DbMgr
       extend Forwardable
       
-      def_delegator( :@feedlyxmgr , :add, :add)
+      def_delegator( :@feedlropmgr , :add, :add)
 
       def initialize( register_time )
         @feedlropmgr = FeedlropMgr.new( register_time )
