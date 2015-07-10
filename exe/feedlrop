@@ -2,7 +2,7 @@
 
 require "feedlrop"
 
-fo = Feedlrop.new
+fo = Feedlrop::Feedlrop.new
 fo.csv_open
 fo.get_all_unread_count
 fo.csv_close
