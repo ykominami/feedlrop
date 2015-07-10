@@ -10,7 +10,7 @@ require 'feedlr'
 
 require 'arxutils'
 require 'dbutil_base'
-require 'dbutil_freedlyx'
+require 'dbutil_freedlrop'
 
 module Feedlrop
   extend Forwardable
