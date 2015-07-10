@@ -36,7 +36,8 @@ module Feedlrop
     end
 
     def dbx
-      @dbmgr = Arxutils::Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
+      register_time = Arxutils::Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
+      @dbmgr = Dbutil::DbMgr.new( register_time )
     end
 
     def get_output_file( ext )
