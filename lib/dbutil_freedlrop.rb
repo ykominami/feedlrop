@@ -32,7 +32,7 @@ module Feedlrop
 
       def add( category, url , unread_count )
         begin
-          uf = Unreadfeed.create( time_id: @ct.id , category: category , url: url , unread_count: unread_count , @register_time )
+          uf = Unreadfeed.create( time_id: @ct.id , category: category , url: url , unread_count: unread_count , start_datetime: @register_time )
         rescue => ex
           p ex.class
           p ex.message
