@@ -26,8 +26,12 @@ module Feedlrop
       @oauth_access_token = 'Al_RuRJ7ImEiOiJGZWVkbHkgRGV2ZWxvcGVyIiwiZSI6MTQzODI3NDEzOTc2NSwiaSI6IjA0ZmE3ODczLWE3NjEtNDZkMy05MmRjLTNmNjIzNWRmMDA0ZiIsInAiOjYsInQiOjEsInYiOiJwcm9kdWN0aW9uIiwidyI6IjIwMTMuMTEiLCJ4Ijoic3RhbmRhcmQifQ:feedlydev'
 
       register_time = Arxutils::Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
+      p "=Feedlrop::Feedlrop.new"
+      p "=register_time"
+      p register_time
       @dbmgr = Dbutil::DbMgr.new( register_time )
-
+      p "=@dbmgr"
+      p @dbmgr
       @client = Feedlr::Client.new(sandbox: false ,  oauth_access_token: @oauth_access_token)
       #p client.api_methods
       @profile = @client.user_profile
