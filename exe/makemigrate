@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+require 'arxutils'
+require 'migrate'
+
+data_ary = [
+  {
+    :flist => %W!noitem!,
+    :classname => "Countdatetime",
+    :classname_downcase => "countdatetime",
+    :items => [
+              ["countdatetime" , "datetime", "false"],
+            ],
+    :plural => "countdatetimes"
+  },
+
+  {
+    :flist => %W!base!,
+    :classname => "Unreadfeed",
+    :classname_downcase => "unreadfeed",
+
+    :items => [
+              ["time_id" , "integer", "false"],
+              ["category" , "string", "false"],
+              ["url" , "string", "false"],
+              ["unread_count" , "integer", "false"],
+             ],
+    :plural => "unreadfeeds"
+  },
+]
+
+mig = Arxutils::Migrate.new
+data_ary.reduce(0) do |next_num , x| 
+  mig.make( next_num , x )
+end
+mig.migrate
