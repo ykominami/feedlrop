@@ -10,6 +10,7 @@ require 'feedlr'
 
 require 'arxutils'
 require 'dbutil_base'
+require 'dbutil_base'
 require 'dbutil_freedlrop'
 
 module Feedlrop
@@ -35,7 +36,7 @@ module Feedlrop
     end
 
     def dbx
-      @dbmgr = Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
+      @dbmgr = Arxutils::Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
     end
 
     def get_output_file( ext )
