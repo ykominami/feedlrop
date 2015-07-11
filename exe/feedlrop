@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "arxutils"
+require "dbinit"
 require "feedlrop"
 
 fo = Feedlrop::Feedlrop.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::DBCONFIG , Arxutils::CONFIG_DIR, Arxutils::DATABASELOG)

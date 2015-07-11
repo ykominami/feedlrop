@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 require 'arxutils'
+require 'dbinit'
 require 'migrate'
 require 'feedlrop'
 
