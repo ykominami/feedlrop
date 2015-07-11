@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 require 'arxutils'
 require 'migrate'
+require 'feedlrop'
 
 data_ary = [
   {
@@ -33,4 +34,4 @@ mig = Arxutils::Migrate.new
 data_ary.reduce(0) do |next_num , x| 
   mig.make( next_num , x )
 end
-mig.migrate
+mig.migrate( Feedlrop::DBCONFIG , Feedlrop::DATABAELOG )

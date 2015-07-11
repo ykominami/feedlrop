@@ -14,23 +14,22 @@ require 'dbutil_base'
 require 'dbutil_freedlrop'
 
 module Feedlrop
+  DBCONFIG = 'config/sqlite3.yaml'
+  DATABESELOG = 'db/database.log'
+
   class Feedlrop
     extend Forwardable
     
-#    def_delegator( :@dbmgr , :add , :db_add)
-
-    def initialize
-      @sqlite3yaml = 'config/sqlite3.yaml'
-      @databaselog = 'db/database.log'
+    def initialize(dbconfig , databaselog)
+      @dbconfig = dbconfig
+      @databaselog = databaselog
       
       @oauth_access_token = 'Al_RuRJ7ImEiOiJGZWVkbHkgRGV2ZWxvcGVyIiwiZSI6MTQzODI3NDEzOTc2NSwiaSI6IjA0ZmE3ODczLWE3NjEtNDZkMy05MmRjLTNmNjIzNWRmMDA0ZiIsInAiOjYsInQiOjEsInYiOiJwcm9kdWN0aW9uIiwidyI6IjIwMTMuMTEiLCJ4Ijoic3RhbmRhcmQifQ:feedlydev'
 
-      register_time = Arxutils::Dbutil::DbMgr.init( @sqlite3yaml , @databaselog )
+      register_time = Arxutils::Dbutil::DbMgr.init( @dbconfig , @databaselog )
       @dbmgr = Dbutil::DbMgr.new( register_time )
       @client = Feedlr::Client.new(sandbox: false ,  oauth_access_token: @oauth_access_token)
-      #p client.api_methods
       @profile = @client.user_profile
-
       @categories = @client.user_categories
     end
 
