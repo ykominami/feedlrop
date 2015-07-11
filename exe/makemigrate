@@ -30,8 +30,9 @@ data_ary = [
   },
 ]
 
-mig = Arxutils::Migrate.new
+forced = true
+mig = Arxutils::Migrate.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::DBCONFIG , Arxutils::CONFIG_DIR, Arxutils::DATABASELOG)
 data_ary.reduce(0) do |next_num , x| 
   mig.make( next_num , x )
 end
-mig.migrate( Feedlrop::DBCONFIG , Feedlrop::DATABAELOG )
+mig.migrate
