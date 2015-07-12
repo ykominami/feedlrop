@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-require 'arxutils'
+
 require 'dbinit'
 require 'migrate'
 require 'feedlrop'
@@ -32,7 +32,7 @@ data_ary = [
 ]
 
 forced = true
-mig = Arxutils::Migrate.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::DBCONFIG , Arxutils::CONFIG_DIR, Arxutils::DATABASELOG)
+mig = Arxutils::Migrate.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR  , Arxutils::CONFIG_DIR , Arxutils::DBCONFIG, Arxutils::DATABASELOG , forced )
 data_ary.reduce(0) do |next_num , x| 
   mig.make( next_num , x )
 end

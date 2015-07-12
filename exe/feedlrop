@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
 
-require "arxutils"
 require "dbinit"
 require "feedlrop"
 
-fo = Feedlrop::Feedlrop.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::DBCONFIG , Arxutils::CONFIG_DIR, Arxutils::DATABASELOG)
+fo = Feedlrop::Feedlrop.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::CONFIG_DIR, Arxutils::DBCONFIG , Arxutils::DATABASELOG)
 fo.csv_open
 fo.get_all_unread_count
 fo.csv_close

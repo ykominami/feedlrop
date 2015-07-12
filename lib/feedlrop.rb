@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 require "feedlrop/version"
 
-require 'yaml'
+require 'arxutils'
+require 'dbutil_base'
+require 'dbutil_freedlrop'
+
 require 'csv'
 require 'pp'
 require 'forwardable'
 
 require 'feedlr'
-
-require 'arxutils'
-require 'dbutil_base'
-require 'dbutil_freedlrop'
 
 module Feedlrop
   class Feedlrop
