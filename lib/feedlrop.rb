@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require "feedlrop/version"
 
+require 'arxutils'
 require 'dbutil_base'
 require 'dbutil_freedlrop'
 
@@ -18,8 +19,7 @@ module Feedlrop
       
       @oauth_access_token = 'Al_RuRJ7ImEiOiJGZWVkbHkgRGV2ZWxvcGVyIiwiZSI6MTQzODI3NDEzOTc2NSwiaSI6IjA0ZmE3ODczLWE3NjEtNDZkMy05MmRjLTNmNjIzNWRmMDA0ZiIsInAiOjYsInQiOjEsInYiOiJwcm9kdWN0aW9uIiwidyI6IjIwMTMuMTEiLCJ4Ijoic3RhbmRhcmQifQ:feedlydev'
 
-      dbinit = ArxUtils::Dbinit.new( db_dir , migrate_dir , config_dir, dbconfig , log_fname )
-      register_time = Arxutils::Dbutil::DbMgr.init( dbinit )
+      register_time = Arxutils::Dbutil::DbMgr.init( db_dir , migrate_dir , config_dir, dbconfig , log_fname )
 
       @dbmgr = Dbutil::DbMgr.new( register_time )
       @client = Feedlr::Client.new(sandbox: false ,  oauth_access_token: @oauth_access_token)
