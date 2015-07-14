@@ -15,9 +15,9 @@ module Feedlrop
   class Feedlrop
     extend Forwardable
     
-    def initialize( db_dir , migrate_dir , config_dir, dbconfig , log_fname )
+    def initialize( token , db_dir , migrate_dir , config_dir, dbconfig , log_fname )
       
-      @oauth_access_token = 'Al_RuRJ7ImEiOiJGZWVkbHkgRGV2ZWxvcGVyIiwiZSI6MTQzODI3NDEzOTc2NSwiaSI6IjA0ZmE3ODczLWE3NjEtNDZkMy05MmRjLTNmNjIzNWRmMDA0ZiIsInAiOjYsInQiOjEsInYiOiJwcm9kdWN0aW9uIiwidyI6IjIwMTMuMTEiLCJ4Ijoic3RhbmRhcmQifQ:feedlydev'
+      @oauth_access_token = token
 
       register_time = Arxutils::Dbutil::DbMgr.init( db_dir , migrate_dir , config_dir, dbconfig , log_fname )
 

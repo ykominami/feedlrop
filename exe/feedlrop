@@ -3,7 +3,8 @@
 require "dbinit"
 require "feedlrop"
 
-fo = Feedlrop::Feedlrop.new(Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::CONFIG_DIR, Arxutils::DBCONFIG , Arxutils::DATABASELOG)
+token = ARGV[0]
+fo = Feedlrop::Feedlrop.new(token , Arxutils::DB_DIR, Arxutils::MIGRATE_DIR , Arxutils::CONFIG_DIR, Arxutils::DBCONFIG , Arxutils::DATABASELOG)
 fo.csv_open
 fo.get_all_unread_count
 fo.csv_close
