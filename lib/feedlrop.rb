@@ -13,7 +13,7 @@ require 'feedlr'
 
 module Feedlrop
   class Feedlrop
-    extend Forwardable
+    extend Forwardableruby -
     
     def initialize( token , db_dir , migrate_dir , config_dir, dbconfig , log_fname )
       
