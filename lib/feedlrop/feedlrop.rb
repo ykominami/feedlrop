@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'arxutils'
+require 'arxutils/store'
 require 'csv'
 require 'pp'
 
