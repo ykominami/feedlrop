@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+require 'forwardable'
+require 'feedlrop/dbutil/feedlropmgr'
+
 module Feedlrop
   module Dbutil
     class DbMgr
