@@ -6,17 +6,8 @@ require 'pp'
 module Feedlrop
   class Feedlrop
     
-    def initialize( token , kind, hs /*db_dir , migrate_dir , config_dir, dbconfig , log_fname*/ )
+    def initialize( token , kind, hs  )
       @oauth_access_token = token
-=begin
-      hs = {
-        "db_dir" => db_dir,
-        "migrate_dir" => migrate_dir, 
-        "config_dir" => config_dir
-        "dbconfig" => dbconfig,
-        "log_fname" => log_fname,
-      }
-=end
       @dbmgr = Arxutils::Store.new(kind , hs ){ | register_time |
         Dbutil::DbMgr.new( register_time )
       }
@@ -58,7 +49,6 @@ module Feedlrop
           end
         end
       end
-
     end
 
     def csv_close
@@ -66,4 +56,3 @@ module Feedlrop
     end
   end
 end
-
