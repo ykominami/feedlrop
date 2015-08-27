@@ -39,7 +39,13 @@ module Feedlrop
       #p categories
       @categories.each do | x |
         #  f.puts "id=#{x.id.split('/')[-1]}"
-        category_id = x.id.split('/')[-1]
+        f = true
+        if x.class == String
+          category_id = x.id.split('/')[-1]
+        else
+          f = false
+        end
+        next unless f
         
         en = @client.user_unread_counts( {:streamId => x.id } )
         en.unreadcounts.each do |y|
