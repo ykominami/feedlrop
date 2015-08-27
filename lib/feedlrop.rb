@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
 require "feedlrop/version"
-
 require 'arxutils'
-require 'dbutil_base'
-require 'dbutil_freedlrop'
-
+require 'dbutil_feedlrop'
 require 'csv'
 require 'pp'
-require 'forwardable'
 
 require 'feedlr'
 
 module Feedlrop
   class Feedlrop
-    extend Forwardableruby -
     
     def initialize( token , db_dir , migrate_dir , config_dir, dbconfig , log_fname )
-      
       @oauth_access_token = token
 
       register_time = Arxutils::Dbutil::DbMgr.init( db_dir , migrate_dir , config_dir, dbconfig , log_fname )
