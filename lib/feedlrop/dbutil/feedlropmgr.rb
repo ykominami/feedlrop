@@ -11,19 +11,7 @@ module Feedlrop
     class Countdatetime < ActiveRecord::Base
     end
 
-    class DbMgr
-      extend Forwardable
-      
-      def_delegator( :@feedlropmgr , :add, :add)
-
-      def initialize( register_time )
-        @feedlropmgr = FeedlropMgr.new( register_time )
-      end
-
-    end
-    
     class FeedlropMgr
-      
       extend Forwardable
 
       def initialize(register_time)
@@ -46,7 +34,6 @@ module Feedlrop
       def find(id)
         Unreadfeed.find(id)
       end
-      
     end
   end
 end
