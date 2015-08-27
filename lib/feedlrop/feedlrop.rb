@@ -9,8 +9,8 @@ module Feedlrop
     
     def initialize( token , kind, hs  )
       @oauth_access_token = token
-      @dbmgr = Arxutils::Store.new(kind , hs ){ | register_time |
-        Dbutil::DbMgr.new( register_time )
+      @dbmgr = Arxutils::Store.init(kind , hs ){ | register_time |
+        Feedlrop::Dbutil::DbMgr.new( register_time )
       }
       
       @client = Feedlr::Client.new(sandbox: false ,  oauth_access_token: @oauth_access_token)
