@@ -3,6 +3,7 @@ require 'arxutils'
 require 'arxutils/store'
 require 'csv'
 require 'pp'
+require 'feedlr'
 
 module Feedlrop
   class Feedlrop
@@ -22,17 +23,6 @@ module Feedlrop
       n = Time.now
       fname = %Q!#{n.year}-#{n.month}-#{n.day}-#{n.hour}-#{n.min}-#{n.sec}.#{ext}!
       File.open( fname , "w")
-    end
-
-    def csv_open
-      @csv = CSV.new(get_output_file("csv") , {
-                       :headers => %w!category_id id count!,
-                       :write_headers => true
-                     } )
-    end
-
-    def csv_add(category_id , id , count)
-      @csv << [category_id , id , count ]
     end
 
     def get_all_unread_count
@@ -56,6 +46,17 @@ module Feedlrop
           end
         end
       end
+    end
+
+    def csv_open
+      @csv = CSV.new(get_output_file("csv") , {
+                       :headers => %w!category_id id count!,
+                       :write_headers => true
+                     } )
+    end
+
+    def csv_add(category_id , id , count)
+      @csv << [category_id , id , count ]
     end
 
     def csv_close
