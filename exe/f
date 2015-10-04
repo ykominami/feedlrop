@@ -22,5 +22,6 @@ fo = Feedlrop::Feedlrop.new(
                             )
 #fo.get_all_unread_count
 fo.print_user_profile
+fo.print_subscription
 
 

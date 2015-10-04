@@ -52,6 +52,12 @@ module Feedlrop
     def print_user_profile
       ap @profile
     end
+
+    def print_subscription
+      @client.user_subscriptions.map{|m|  m.id}
+      puts "==============="
+      @client.user_subscriptions.map{|m|  ap }
+    end
     
     def csv_open
       @csv = CSV.new(get_output_file("csv") , {
