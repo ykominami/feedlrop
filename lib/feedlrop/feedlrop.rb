@@ -56,7 +56,7 @@ module Feedlrop
     def print_subscription
       @client.user_subscriptions.map{|m|  m.id}
       puts "==============="
-      @client.user_subscriptions.map{|m|  ap }
+      @client.user_subscriptions.map{|m|  ap m }
     end
     
     def csv_open
