@@ -4,6 +4,7 @@ require 'arxutils/store'
 require 'csv'
 require 'pp'
 require 'feedlr'
+require 'awesome_print'
 
 module Feedlrop
   class Feedlrop
@@ -48,6 +49,10 @@ module Feedlrop
       end
     end
 
+    def get_user_profile
+      ap @profile
+    end
+    
     def csv_open
       @csv = CSV.new(get_output_file("csv") , {
                        :headers => %w!category_id id count!,

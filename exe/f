@@ -20,7 +20,7 @@ fo = Feedlrop::Feedlrop.new(
                             :db,
                             hs
                             )
-fo.csv_open
-fo.get_all_unread_count
-fo.csv_close
+#fo.get_all_unread_count
+fo.print_user_profile
+
 
