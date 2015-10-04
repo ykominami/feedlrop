@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'arxutils'
+require 'feedlrop'
+
+dbconfig = Arxutils::Dbutil::DBCONFIG_MYSQL
+dbconfig = Arxutils::Dbutil::DBCONFIG_SQLITE3
+
+token = ARGV[0]
+hs = {
+  "db_dir" => Arxutils::Dbutil::DB_DIR,
+  "migrate_dir" => Arxutils::Dbutil::MIGRATE_DIR,
+  "config_dir" => Arxutils::Dbutil::CONFIG_DIR,
+  "dbconfig" => dbconfig,
+  "log_fname" => Arxutils::Dbutil::DATABASELOG,
+}
+
+fo = Feedlrop::Feedlrop.new(
+                            token ,
+                            :db,
+                            hs
+                            )
+fo.csv_open
+fo.get_all_unread_count
+fo.csv_close
+
