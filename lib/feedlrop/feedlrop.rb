@@ -49,7 +49,7 @@ module Feedlrop
       end
     end
 
-    def get_user_profile
+    def print_user_profile
       ap @profile
     end
     
