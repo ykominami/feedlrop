@@ -54,9 +54,11 @@ module Feedlrop
     end
 
     def print_subscription
-      @client.user_subscriptions.map{|m|  m.id}
+      option = {:plain => true }
+      puts @client.user_subscriptions.size
+      @client.user_subscriptions.map{|m|  puts m.id}
       puts "==============="
-      @client.user_subscriptions.map{|m|  ap m }
+      @client.user_subscriptions.map{|m|  ap m , option }
     end
     
     def csv_open
