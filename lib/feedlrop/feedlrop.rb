@@ -28,7 +28,6 @@ module Feedlrop
 
     def get_all_unread_count
       @categories.each do | x |
-        #  f.puts "id=#{x.id.split('/')[-1]}"
         f = true
         if x.class != String
           category_id = x.id.split('/')[-1]
@@ -39,7 +38,6 @@ module Feedlrop
 
         en = @client.user_unread_counts( {:streamId => x.id } )
         en.unreadcounts.each do |y|
-          puts "y.id=#{y.id}"
           if y.id =~ /^feed\/(.+)/
             url = $1
             csv_add( category_id , url , y[:count] )
