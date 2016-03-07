@@ -4,7 +4,7 @@
 require 'arxutils'
 require 'feedlrop'
 
-data_ary = [
+db_def_ary = [
   {
     :flist => %W!noitem!,
     :classname => "Countdatetime",
@@ -35,7 +35,7 @@ dbconfig = Arxutils::Dbutil::DBCONFIG_SQLITE3
 
 forced = true
 Arxutils::Migrate.migrate(
-                          data_ary,
+                          db_def_ary,
                           0,
                           dbconfig,
                           forced
