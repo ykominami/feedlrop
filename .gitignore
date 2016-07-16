@@ -14,4 +14,9 @@
 /memo/
 /TAGS
 /*.bat
+/OLD-DATA
+/exe/get_access*
+*~
+xdoc.txt
+xdoc2.txt
 
