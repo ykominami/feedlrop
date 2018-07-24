@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{utility functions for Feedly API.}
   spec.description   = %q{utility functions for Feedly API.}
   spec.homepage      = ""
-  
   spec.license       = "MIT"
+  
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
   if spec.respond_to?(:metadata)
@@ -28,14 +28,15 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "feedlr"
-
-  spec.add_runtime_dependency "activerecord"
-  spec.add_runtime_dependency "sqlite3"
-  spec.add_runtime_dependency "arxutils", "~> 0.1.10"
   spec.add_runtime_dependency "awesome_print"
   spec.add_runtime_dependency "faraday"
+
+  spec.add_runtime_dependency "activerecord" , "~> 4.2"
+  spec.add_runtime_dependency "sqlite3"
+  spec.add_runtime_dependency "mysql2" , "~> 0.4.1"
+  spec.add_runtime_dependency "arxutils", "~> 0.1.10"
   
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
 end
