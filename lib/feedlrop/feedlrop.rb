@@ -9,9 +9,9 @@ require 'awesome_print'
 module Feedlrop
   class Feedlrop
     
-    def initialize( token , kind, hs  )
+    def initialize( token , kind, hs , opts )
       @oauth_access_token = token
-      @dbmgr = Arxutils::Store.init(kind , hs ){ | register_time |
+      @dbmgr = Arxutils::Store.init(kind , hs , opts ){ | register_time |
         Dbutil::DbMgr.new( register_time )
       }
       
