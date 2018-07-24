@@ -3,8 +3,9 @@
 
 require 'arxutils'
 require 'feedlrop'
+require 'simpleoptparse'
 
-db_def_ary = [
+db_scheme_ary = [
   {
     :flist => %W!noitem!,
     :classname => "Countdatetime",
@@ -16,7 +17,7 @@ db_def_ary = [
   },
 
   {
-    :flist => %W!base!,
+    :flist => %W!noitem!,
     :classname => "Unreadfeed",
     :classname_downcase => "unreadfeed",
 
@@ -25,18 +26,37 @@ db_def_ary = [
               ["category" , "string", "false"],
               ["url" , "string", "false"],
               ["unread_count" , "integer", "false"],
+              ["start_datetime" , "datetime", "false"],
              ],
     :plural => "unreadfeeds"
   },
 ]
 
-dbconfig = Arxutils::Dbutil::DBCONFIG_MYSQL
-dbconfig = Arxutils::Dbutil::DBCONFIG_SQLITE3
+opts = { db_dir: Arxutils::Dbutil::DB_DIR }
+banner = "Usage: bundle exec ruby exe/makemigrate [--makeconfig|--remigrate|--mysql|--sqlite3]"
 
-forced = true
+Simpleoptparse::Simpleoptparse.parse( ARGV , opts , banner , Feedlrop::VERSION , nil ){ |parser|
+  parser.on('-c','--makeconfig'  ) { |x| opts["makeconfig"] = true }
+  parser.on('-r','--remigrate'  ) { |x| opts["remigrate"] = true }
+  parser.on('--mysql'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_MYSQL }
+  parser.on('--sqlite3'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 }
+}
+opts["makeconfig"] = !opts["makeconfig"].nil?
+opts["remigrate"] = !opts["remigrate"].nil?
+
+opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 unless opts["dbconfig"]
+
+env = ENV['ENV']
+#env ||= "development"
+env ||= "production"
+
 Arxutils::Migrate.migrate(
-                          db_def_ary,
-                          0,
-                          dbconfig,
-                          forced
+                          Arxutils::Dbutil::DB_DIR,
+                          Arxutils::Dbutil::CONFIG_DIR,
+                          Arxutils::Dbutil::DATABASELOG,
+                          Arxutils::Dbutil::MIGRATE_DIR,
+                          env,
+                          db_scheme_ary,
+                          opts["dbconfig"],
+                          opts
                           )
