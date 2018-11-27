@@ -2,25 +2,34 @@
 
 require 'arxutils'
 require 'feedlrop'
+require 'simpleoptparse'
 
-#dbconfig = Arxutils::Dbutil::DBCONFIG_MYSQL
-dbconfig = Arxutils::Dbutil::DBCONFIG_SQLITE3
-
-token = ARGV[0]
 env = ENV['ENV']
 #env ||= "development"
 env ||= "production"
+
+opts = { db_dir: Arxutils::Dbutil::DB_DIR }
+banner = "Usage: bundle exec ruby exe/chbk [--mysql|--sqlite3]"
+
+# wop = Simpleoptparse::Simpleoptparse.create( ARGV , opts , banner , Arxutils::
+#p Simpleoptparse::Simpleoptparse.class
+Simpleoptparse::Simpleoptparse.parse( ARGV , opts , banner , Feedlrop::VERSION , nil ){ |parser|
+    parser.on('--mysql'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_MYSQL }
+    parser.on('--sqlite3'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 }
+}
+
+opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 unless opts["dbconfig"]
+
+token = ARGV[0]
 
 hs = {
   "db_dir" => Arxutils::Dbutil::DB_DIR,
   "migrate_dir" => Arxutils::Dbutil::MIGRATE_DIR,
   "config_dir" => Arxutils::Dbutil::CONFIG_DIR,
-  "dbconfig" => dbconfig,
+  "dbconfig" => opts["dbconfig"],
   "env" => env,
   "log_fname" => Arxutils::Dbutil::DATABASELOG,
 }
-
-opts = { }
 
 fo = Feedlrop::Feedlrop.new(
                             token ,
