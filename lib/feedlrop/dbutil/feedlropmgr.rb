@@ -5,12 +5,6 @@ require 'pp'
 
 module Feedlrop
   module Dbutil
-    class Unreadfeed < ActiveRecord::Base
-    end
-
-    class Countdatetime < ActiveRecord::Base
-    end
-
     class FeedlropMgr
       extend Forwardable
 
