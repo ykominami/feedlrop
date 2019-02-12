@@ -29,6 +29,7 @@ hs = {
   "dbconfig" => opts["dbconfig"],
   "env" => env,
   "log_fname" => Arxutils::Dbutil::DATABASELOG,
+  "output_dir" => "output"
 }
 
 fo = Feedlrop::Feedlrop.new(
@@ -37,7 +38,6 @@ fo = Feedlrop::Feedlrop.new(
                             hs,
                             opts,
                             )
-fo.csv_open
+fo.csv_open( hs["output_dir"] )
 fo.get_all_unread_count
 fo.csv_close
-
