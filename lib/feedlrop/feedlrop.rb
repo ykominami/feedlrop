@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require 'arxutils'
-require 'arxutils/store'
 require 'csv'
 require 'pp'
 require 'feedlr'
@@ -8,13 +7,12 @@ require 'awesome_print'
 
 module Feedlrop
   class Feedlrop
-    
+
     def initialize( token , kind, hs , opts )
       @oauth_access_token = token
-      @dbmgr = Arxutils::Store.init(kind , hs , opts ){ | register_time |
-        Dbutil::DbMgr.new( register_time )
-      }
-      
+      register_time = Arxutils::Dbutil::DbMgr.init( hs["db_dir"], hs["migrate_dir"] , hs["config_dir"], hs["dbconfig"] , hs["env"] , hs["log_fname"] , opts )
+      @dbmgr = ::Feedlrop::Dbutil::FeedlropMgr.new( register_time )
+
       @client = Feedlr::Client.new(sandbox: false ,  oauth_access_token: @oauth_access_token)
       @profile = @client.user_profile
       @categories = @client.user_categories
@@ -58,7 +56,7 @@ module Feedlrop
       puts "==============="
       @client.user_subscriptions.map{|m|  ap m , option }
     end
-    
+
     def csv_open
       @csv = CSV.new(get_output_file("csv") , {
                        :headers => %w!category_id id count!,
