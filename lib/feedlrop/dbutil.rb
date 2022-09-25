@@ -1,3 +1,4 @@
-# -*- coding: utf-8 -*-
-require 'feedlrop/dbutil/feedlropmgr'
-require 'feedlrop/dbutil/dbrelation'
+# frozen_string_literal: true
+
+require_relative 'dbutil/feedlropmgr'
+# require 'feedlrop/dbutil/dbrelation'

@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-require 'active_record'
+# frozen_string_literal: true
 require 'pp'
 
 module Feedlrop
@@ -10,17 +9,18 @@ module Feedlrop
       # 初期化
       def initialize(register_time)
         @register_time = register_time
-        @ct = Countdatetime.create( countdatetime: @register_time )
+        @ct = Dbutil::Countdatetime.create(countdatetime: @register_time)
       end
 
       # 指定フィードの未読情報登録
-      def add( category, url , unread_count )
+      def add(category, url, unread_count)
         begin
-          uf = Unreadfeed.create( time_id: @ct.id , category: category , url: url , unread_count: unread_count , start_datetime: @register_time )
-        rescue => ex
-          p ex.class
-          p ex.message
-          pp ex.backtrace
+          uf = Dbutil::Unreadfeed.create(time_id: @ct.id, category: category, url: url, unread_count: unread_count,
+                                 start_datetime: @register_time)
+        rescue StandardError => e
+          p e.class
+          p e.message
+          pp e.backtrace
         end
 
         uf

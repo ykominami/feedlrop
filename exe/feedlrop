@@ -1,43 +1,54 @@
 #!/usr/bin/env ruby
-
-require 'arxutils'
+# frozen_string_literal: true
 require 'feedlrop'
-require 'simpleoptparse'
+require "simpleoptparse"
+require 'yaml'
 
-env = ENV['ENV']
-#env ||= "development"
-env ||= "production"
+token, user_id, hash = Feedlrop::Cli.setup
 
-opts = { db_dir: Arxutils::Dbutil::DB_DIR }
-banner = "Usage: bundle exec ruby exe/chbk [--mysql|--sqlite3]"
+banner = "Usage: bundle exec feedlrop --cmd=(lp|lpd|r)"
+opts = {}
+Simpleoptparse::Simpleoptparse.parse(ARGV, opts, banner, Arxutils_Sqlite3::VERSION, nil) do |parser|
+  parser.on("--cmd X", %w[lp lpd r]) { |x| opts["cmd"] = x }
+end
 
-# wop = Simpleoptparse::Simpleoptparse.create( ARGV , opts , banner , Arxutils::
-#p Simpleoptparse::Simpleoptparse.class
-Simpleoptparse::Simpleoptparse.parse( ARGV , opts , banner , Feedlrop::VERSION , nil ){ |parser|
-    parser.on('--mysql'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_MYSQL }
-    parser.on('--sqlite3'  ) { |x| opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 }
-}
+flop = Feedlrop::Feedlrop.new(
+  token,
+  hash
+)
 
-opts["dbconfig"] = Arxutils::Dbutil::DBCONFIG_SQLITE3 unless opts["dbconfig"]
+cmd = opts["cmd"]
+# way = :REMOTE
+# way = :LOCAL
+# way = :LOCAL_PSTORE
+# way = :LOCAL_PSTORE_AND_DB
+# way = :REMOTE
 
-token = ARGV[0]
+ ERROR_CODE_INVALID_CMD = 100
 
-hs = {
-  "db_dir" => Arxutils::Dbutil::DB_DIR,
-  "migrate_dir" => Arxutils::Dbutil::MIGRATE_DIR,
-  "config_dir" => Arxutils::Dbutil::CONFIG_DIR,
-  "dbconfig" => opts["dbconfig"],
-  "env" => env,
-  "log_fname" => Arxutils::Dbutil::DATABASELOG,
-  "output_dir" => "output"
-}
-
-fo = Feedlrop::Feedlrop.new(
-                            token ,
-                            :db,
-                            hs,
-                            opts,
-                            )
-fo.csv_open( hs["output_dir"] )
-fo.get_all_unread_count
-fo.csv_close
+case cmd
+when "lp"
+  # :LOCAL_PSTORE
+  # puts "way=#{way}"
+  # exit
+  flop.check_backup
+  # exit
+when "lpd"
+  # :LOCAL_PSTORE_AND_DB
+  # puts "way=#{way}"
+  # exit
+  # flop.check_backup
+  flop.csv_to_db
+  # exit
+when "r"
+  # :REMOTE
+  puts "cmd=#{cmd}"
+  # exit
+  flop.csv_open(hash['output_dir'])
+  ret = flop.all_unread_count
+  puts "all_unread_count=#{ret.size}"
+  flop.csv_close
+else
+  puts "cmd=#{cmd}"
+  exit ERROR_CODE_INVALID_CMD
+end
